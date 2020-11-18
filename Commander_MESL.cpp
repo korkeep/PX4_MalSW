@@ -84,6 +84,7 @@
 #include <uORB/topics/mavlink_log.h>
 
 //MESL01: Generating Control Error
+//MESL02: Unintended Mission Conduct
 #include <uORB/uORB.h>
 
 typedef enum VEHICLE_MODE_FLAG {
@@ -116,6 +117,9 @@ static struct vehicle_status_flags_s status_flags = {};
 static bool MESL01_flag = false;
 static int last_setpoint_x = 0;
 static int last_setpoint_y = 0;
+
+// MESL02: Unintended Mission Conduct
+static bool MESL02_flag = false;
 
 /**
  * Loop that runs at a lower rate and priority for calibration and parameter tasks.
@@ -991,7 +995,7 @@ Commander::handle_command(vehicle_status_s *status_local, const vehicle_command_
 			}
 		}
 		break;
-
+	
 	case vehicle_command_s::VEHICLE_CMD_MISSION_START: {
 
 			cmd_result = vehicle_command_s::VEHICLE_CMD_RESULT_DENIED;
@@ -1924,13 +1928,23 @@ Commander::run()
 			}
 
 			// MESL01: Generating Control Error
-			// transition to previous state if sticks are touched
+			// transition to previous state if clockwise-rotate is touched
 			if (hrt_elapsed_time(&_manual_control_setpoint.timestamp) < 1_s && // don't use uninitialized or old messages
-			    ((fabsf(_manual_control_setpoint.r) > minimum_stick_deflection))) {
+			    (_manual_control_setpoint.r > minimum_stick_deflection)) {
 				// revert to position control in any case
 				main_state_transition(status, commander_state_s::MAIN_STATE_POSCTL, status_flags, &_internal_state);
 				mavlink_log_info(&mavlink_log_pub, "MESL01: Generating Control Error");
 				MESL01_flag = true;
+			}
+
+			// MESL02: Unintended Mission Conduct
+			// transition to previous state if anticlockwise-rotate is touched
+			if (hrt_elapsed_time(&_manual_control_setpoint.timestamp) < 1_s && // don't use uninitialized or old messages
+			    (_manual_control_setpoint.r * (-1) > minimum_stick_deflection)) {
+				// revert to position control in any case
+				main_state_transition(status, commander_state_s::MAIN_STATE_POSCTL, status_flags, &_internal_state);
+				mavlink_log_info(&mavlink_log_pub, "MESL02: Unintended Mission Conduct");
+				MESL02_flag = true;
 			}
 		}
 
@@ -2293,45 +2307,6 @@ Commander::run()
 
 		//MESL01: Generating Control Error
 		if(MESL01_flag){
-		/*
-			//bool updated = false;
-			int manual_control_setpoint_fd = orb_subscribe(ORB_ID(manual_control_setpoint));
-			orb_set_interval(manual_control_setpoint_fd, 200);
-			px4_pollfd_struct_t fds[] = {
-				{ .fd = manual_control_setpoint_fd,   .events = POLLIN },
-				// there could be more file descriptors here
-			};
-			// wait for sensor update of 1 file descriptor for 250 ms
-			int poll_ret = px4_poll(fds, 1, 250);
-			
-			if (poll_ret == 0) {
-				// this means none of our providers is giving us data
-				PX4_ERR("Got no data within a second");
-			}
-			else if(poll_ret < 0) {
-				PX4_ERR("ERROR return value from poll(): %d", poll_ret);
-			}
-			else {
-				if(fds[0].revents & POLLIN){
-					struct manual_control_setpoint_s temp_setpoint;
-					orb_copy(ORB_ID(manual_control_setpoint), manual_control_setpoint_fd, &temp_setpoint);
-					
-					PX4_INFO("Original Value:\t%8.4f\t%8.4f",
-								(double)_manual_control_setpoint.x,
-								(double)_manual_control_setpoint.y);
-
-					temp_setpoint = _manual_control_setpoint;
-					temp_setpoint.x *= (-1);
-					temp_setpoint.y *= (-1);
-					
-					PX4_INFO("Changed Value:\t%8.4f\t%8.4f",
-								(double)temp_setpoint.x,
-								(double)temp_setpoint.y);
-
-					orb_advert_t changed_setpoint = orb_advertise(ORB_ID(manual_control_setpoint), &temp_setpoint);
-					orb_publish(ORB_ID(manual_control_setpoint), changed_setpoint, &temp_setpoint);
-				}
-			}*/
 			PX4_INFO("Original Value:\t%8.4f\t%8.4f",
 					(double)_manual_control_setpoint.x,
 					(double)_manual_control_setpoint.y);
@@ -2354,9 +2329,78 @@ Commander::run()
 				last_setpoint_x = (int)(temp_setpoint.x * 10000);
 				last_setpoint_y = (int)(temp_setpoint.y * 10000);
 			}
-			//bool orb_checked = orb_check(manual_control_setpoint_fd, &updated);
-			//if(updated && (orb_checked == OK)){
-			//}
+		}
+
+		//MESL02: Unintended Mission Conduct
+		if(MESL02_flag){
+			// init mission state, do it here to allow navigator to use stored mission even if mavlink failed to start 
+			mission_s mission;
+
+			if (dm_read(DM_KEY_MISSION_STATE, 0, &mission, sizeof(mission_s)) == sizeof(mission_s)) {
+				if (mission.dataman_id == DM_KEY_WAYPOINTS_OFFBOARD_0 || mission.dataman_id == DM_KEY_WAYPOINTS_OFFBOARD_1) {
+					if (mission.count > 0) {
+						PX4_INFO("Mission #%d loaded, %u WPs, curr: %d", mission.dataman_id, mission.count, mission.current_seq);
+					}
+
+				} else {
+					PX4_ERR("reading mission state failed");
+
+					/* initialize mission state in dataman */
+					mission.timestamp = hrt_absolute_time();
+					mission.dataman_id = DM_KEY_WAYPOINTS_OFFBOARD_0;
+					dm_write(DM_KEY_MISSION_STATE, 0, DM_PERSIST_POWER_ON_RESET, &mission, sizeof(mission_s));
+				}
+
+				_mission_pub.publish(mission);
+			}
+			
+
+			/* start mission result check */
+			//const auto prev_mission_instance_count = _mission_result_sub.get().instance_count;
+
+			if (_mission_result_sub.update()) {
+				const mission_result_s &mission_result = _mission_result_sub.get();
+
+				// if mission_result is valid for the current mission
+				const bool mission_result_ok = (mission_result.timestamp > _boot_timestamp)
+								&& (mission_result.instance_count > 0);
+
+				status_flags.condition_auto_mission_available = mission_result_ok && mission_result.valid;
+
+				if (mission_result_ok) {
+
+					if (status.mission_failure != mission_result.failure) {
+						status.mission_failure = mission_result.failure;
+						_status_changed = true;
+
+						if (status.mission_failure) {
+							mavlink_log_critical(&mavlink_log_pub, "Mission cannot be completed");
+						}
+					}
+
+					/* Only evaluate mission state if home is set */
+					if (status_flags.condition_home_position_valid &&
+						(prev_mission_instance_count != mission_result.instance_count)) {
+
+						if (!status_flags.condition_auto_mission_available) {
+							/* the mission is invalid */
+							tune_mission_fail(true);
+
+						} else if (mission_result.warning) {
+							/* the mission has a warning */
+							tune_mission_fail(true);
+
+						} else {
+							/* the mission is valid */
+							tune_mission_ok(true);
+						}
+					}
+				}
+			}
+
+			main_state_transition(status, commander_state_s::MAIN_STATE_AUTO_MISSION, status_flags, &_internal_state);
+
+			MESL02_flag = false;
 		}
 
 		// automatically set or update home position
@@ -2847,11 +2891,6 @@ Commander::set_main_state_rc(const vehicle_status_s &status_local, bool *changed
 		return TRANSITION_NOT_CHANGED;
 	}
 
-	//MESL01: Generating Control Error
-	/*if(MESL01_flag){
-		_manual_control_setpoint.x *= (-1);
-		_manual_control_setpoint.y *= (-1);
-	}*/
 	_last_manual_control_setpoint = _manual_control_setpoint;
 
 	// reset the position and velocity validity calculation to give the best change of being able to select
