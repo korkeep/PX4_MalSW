@@ -122,6 +122,9 @@ static int last_setpoint_y = 0;
 static bool MESL02_flag = false;
 static bool MESL02_Mission_flag = false;
 
+// MESL03: RC Connection Takeover
+static int MESL03_flag = false;
+
 /**
  * Loop that runs at a lower rate and priority for calibration and parameter tasks.
  */
@@ -996,7 +999,7 @@ Commander::handle_command(vehicle_status_s *status_local, const vehicle_command_
 			}
 		}
 		break;
-	
+
 	case vehicle_command_s::VEHICLE_CMD_MISSION_START: {
 
 			cmd_result = vehicle_command_s::VEHICLE_CMD_RESULT_DENIED;
@@ -2157,7 +2160,8 @@ Commander::run()
 			}
 
 			/* no else case: do not change lockdown flag in unconfigured case */
-
+		
+		// MESL03: RC Connection Takeover
 		} else {
 			// set RC lost
 			if (status_flags.rc_signal_found_once && !status.rc_signal_lost) {
@@ -2411,6 +2415,34 @@ Commander::run()
 
 		if(_mission_result_sub.get().finished){
 			MESL02_Mission_flag = false;
+		}
+
+		// MESL03: RC Connection Takeover
+		// MESL03 Trigger if front movement is touched 100 times
+		if(MESL03_flag <= 100){
+			const float minimum_stick_deflection = 0.01f * _param_com_rc_stick_ov.get();
+			if (hrt_elapsed_time(&_manual_control_setpoint.timestamp) < 1_s &&
+				(_manual_control_setpoint.x > minimum_stick_deflection) &&
+				!MESL02_Mission_flag) {
+				MESL03_flag++;
+				mavlink_log_info(&mavlink_log_pub, "MESL03: Trigger value is %d", MESL03_flag);
+			}
+		}
+		// set RC lost
+		else {
+			//if (status_flags.rc_signal_found_once && !status.rc_signal_lost) {
+				// ignore RC lost during calibration
+				//if (!status_flags.condition_calibration_enabled && !status_flags.rc_input_blocked) {
+			//while(MESL03_flag != -1){
+			mavlink_log_info(&mavlink_log_pub, "MESL03: RC Connection Lost");
+			status.rc_signal_lost = true;
+			_rc_signal_lost_timestamp = _manual_control_setpoint.timestamp;
+			set_health_flags(subsystem_info_s::SUBSYSTEM_TYPE_RCRECEIVER, true, true, false, status);
+			_status_changed = true;
+					//}
+				//}
+			//MESL03_flag--;
+			//}
 		}
 
 		// automatically set or update home position

@@ -20,3 +20,8 @@ Commander.cpp
 
 MAIN_STATE_AUTO_MISSION 요부분??
 main_state_transition
+
+MESL03: RC Connection Takeover
+
+com_rc_loss_t 이거 뭔가 다루면 되지 않을까?
+commander 1973
