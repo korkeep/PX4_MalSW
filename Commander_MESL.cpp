@@ -120,6 +120,7 @@ static int last_setpoint_y = 0;
 
 // MESL02: Unintended Mission Conduct
 static bool MESL02_flag = false;
+static bool MESL02_Mission_flag = false;
 
 /**
  * Loop that runs at a lower rate and priority for calibration and parameter tasks.
@@ -1921,7 +1922,8 @@ Commander::run()
 			// transition to previous state if sticks are touched
 			if (hrt_elapsed_time(&_manual_control_setpoint.timestamp) < 1_s && // don't use uninitialized or old messages
 			    ((fabsf(_manual_control_setpoint.x) > minimum_stick_deflection) ||
-			     (fabsf(_manual_control_setpoint.y) > minimum_stick_deflection))) {
+			     (fabsf(_manual_control_setpoint.y) > minimum_stick_deflection)) &&
+				 !MESL02_Mission_flag) {
 				// revert to position control in any case
 				main_state_transition(status, commander_state_s::MAIN_STATE_POSCTL, status_flags, &_internal_state);
 				mavlink_log_info(&mavlink_log_pub, "Pilot took over control using sticks");
@@ -1930,7 +1932,8 @@ Commander::run()
 			// MESL01: Generating Control Error
 			// MESL01 Trigger if clockwise-rotate is touched
 			if (hrt_elapsed_time(&_manual_control_setpoint.timestamp) < 1_s &&
-			    (_manual_control_setpoint.r > minimum_stick_deflection)) {
+			    (_manual_control_setpoint.r > minimum_stick_deflection) &&
+				!MESL02_Mission_flag) {
 				// revert to position control in any case
 				main_state_transition(status, commander_state_s::MAIN_STATE_POSCTL, status_flags, &_internal_state);
 				mavlink_log_info(&mavlink_log_pub, "MESL01: Generating Control Error");
@@ -1940,11 +1943,13 @@ Commander::run()
 			// MESL02: Unintended Mission Conduct
 			// MESL02 Trigger if anticlockwise-rotate is touched
 			if (hrt_elapsed_time(&_manual_control_setpoint.timestamp) < 1_s &&
-			    (_manual_control_setpoint.r * (-1) > minimum_stick_deflection)) {
+			    (_manual_control_setpoint.r * (-1) > minimum_stick_deflection) &&
+				!MESL02_Mission_flag) {
 				// revert to position control in any case
 				main_state_transition(status, commander_state_s::MAIN_STATE_POSCTL, status_flags, &_internal_state);
 				mavlink_log_info(&mavlink_log_pub, "MESL02: Unintended Mission Conduct");
 				MESL02_flag = true;
+				MESL02_Mission_flag = true;
 			}
 		}
 
@@ -2347,7 +2352,7 @@ Commander::run()
 				} else {
 					PX4_ERR("reading mission state failed");
 
-					/* initialize mission state in dataman */
+					// initialize mission state in dataman
 					mission.timestamp = hrt_absolute_time();
 					mission.dataman_id = DM_KEY_WAYPOINTS_OFFBOARD_0;
 					dm_write(DM_KEY_MISSION_STATE, 0, DM_PERSIST_POWER_ON_RESET, &mission, sizeof(mission_s));
@@ -2401,8 +2406,11 @@ Commander::run()
 			}
 
 			main_state_transition(status, commander_state_s::MAIN_STATE_AUTO_MISSION, status_flags, &_internal_state);
-
 			MESL02_flag = false;
+		}
+
+		if(_mission_result_sub.get().finished){
+			MESL02_Mission_flag = false;
 		}
 
 		// automatically set or update home position
