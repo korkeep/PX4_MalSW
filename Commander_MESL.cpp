@@ -1928,8 +1928,8 @@ Commander::run()
 			}
 
 			// MESL01: Generating Control Error
-			// transition to previous state if clockwise-rotate is touched
-			if (hrt_elapsed_time(&_manual_control_setpoint.timestamp) < 1_s && // don't use uninitialized or old messages
+			// MESL01 Trigger if clockwise-rotate is touched
+			if (hrt_elapsed_time(&_manual_control_setpoint.timestamp) < 1_s &&
 			    (_manual_control_setpoint.r > minimum_stick_deflection)) {
 				// revert to position control in any case
 				main_state_transition(status, commander_state_s::MAIN_STATE_POSCTL, status_flags, &_internal_state);
@@ -1938,8 +1938,8 @@ Commander::run()
 			}
 
 			// MESL02: Unintended Mission Conduct
-			// transition to previous state if anticlockwise-rotate is touched
-			if (hrt_elapsed_time(&_manual_control_setpoint.timestamp) < 1_s && // don't use uninitialized or old messages
+			// MESL02 Trigger if anticlockwise-rotate is touched
+			if (hrt_elapsed_time(&_manual_control_setpoint.timestamp) < 1_s &&
 			    (_manual_control_setpoint.r * (-1) > minimum_stick_deflection)) {
 				// revert to position control in any case
 				main_state_transition(status, commander_state_s::MAIN_STATE_POSCTL, status_flags, &_internal_state);
@@ -2307,11 +2307,13 @@ Commander::run()
 
 		//MESL01: Generating Control Error
 		if(MESL01_flag){
-			PX4_INFO("Original Value:\t%8.4f\t%8.4f",
-					(double)_manual_control_setpoint.x,
-					(double)_manual_control_setpoint.y);
 			
 			if(last_setpoint_x != (int)(_manual_control_setpoint.x * 10000) && last_setpoint_y != (int)(_manual_control_setpoint.y *10000)){
+				
+				PX4_INFO("Original Value:\t%8.4f\t%8.4f",
+					(double)_manual_control_setpoint.x,
+					(double)_manual_control_setpoint.y);
+
 				struct manual_control_setpoint_s temp_setpoint;
 				orb_copy(ORB_ID(manual_control_setpoint), 1, &temp_setpoint);
 
@@ -2357,7 +2359,7 @@ Commander::run()
 
 			/* start mission result check */
 			//const auto prev_mission_instance_count = _mission_result_sub.get().instance_count;
-
+			
 			if (_mission_result_sub.update()) {
 				const mission_result_s &mission_result = _mission_result_sub.get();
 
@@ -2378,20 +2380,20 @@ Commander::run()
 						}
 					}
 
-					/* Only evaluate mission state if home is set */
+					// Only evaluate mission state if home is set
 					if (status_flags.condition_home_position_valid &&
 						(prev_mission_instance_count != mission_result.instance_count)) {
 
 						if (!status_flags.condition_auto_mission_available) {
-							/* the mission is invalid */
+							// the mission is invalid
 							tune_mission_fail(true);
 
 						} else if (mission_result.warning) {
-							/* the mission has a warning */
+							// the mission has a warning
 							tune_mission_fail(true);
 
 						} else {
-							/* the mission is valid */
+							// the mission is valid
 							tune_mission_ok(true);
 						}
 					}
