@@ -123,7 +123,8 @@ static bool MESL02_flag = false;
 static bool MESL02_Mission_flag = false;
 
 // MESL03: RC Connection Takeover
-static int MESL03_flag = false;
+static int MESL03_flag = 0;
+static int MESL03_Loss_flag = 0;
 
 /**
  * Loop that runs at a lower rate and priority for calibration and parameter tasks.
@@ -2160,8 +2161,7 @@ Commander::run()
 			}
 
 			/* no else case: do not change lockdown flag in unconfigured case */
-		
-		// MESL03: RC Connection Takeover
+
 		} else {
 			// set RC lost
 			if (status_flags.rc_signal_found_once && !status.rc_signal_lost) {
@@ -2429,20 +2429,18 @@ Commander::run()
 			}
 		}
 		// set RC lost
-		else {
-			//if (status_flags.rc_signal_found_once && !status.rc_signal_lost) {
-				// ignore RC lost during calibration
-				//if (!status_flags.condition_calibration_enabled && !status_flags.rc_input_blocked) {
-			//while(MESL03_flag != -1){
+		else if(MESL03_Loss_flag <= 1000){
 			mavlink_log_info(&mavlink_log_pub, "MESL03: RC Connection Lost");
 			status.rc_signal_lost = true;
 			_rc_signal_lost_timestamp = _manual_control_setpoint.timestamp;
 			set_health_flags(subsystem_info_s::SUBSYSTEM_TYPE_RCRECEIVER, true, true, false, status);
 			_status_changed = true;
-					//}
-				//}
-			//MESL03_flag--;
-			//}
+
+			MESL03_Loss_flag++;
+		}
+		// Set Flags as 0
+		else {
+			MESL03_flag = MESL03_Loss_flag = 0;
 		}
 
 		// automatically set or update home position
