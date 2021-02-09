@@ -1,0 +1,6 @@
+board_adc start
+bmm150 -I -R 10 start
+bmp280 -I start
+mpl3115a2 -I start
+fxos8701cq -s start
+fxas21002c -s start

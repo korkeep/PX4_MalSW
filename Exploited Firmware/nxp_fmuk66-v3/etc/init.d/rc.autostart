@@ -1,0 +1,375 @@
+set AIRFRAME none
+if param compare SYS_AUTOSTART 2507
+then
+set AIRFRAME 2507_cloudship
+fi
+if param compare SYS_AUTOSTART 17002
+then
+set AIRFRAME 17002_TF-AutoG2
+fi
+if param compare SYS_AUTOSTART 15001
+then
+set AIRFRAME 15001_coax_heli
+fi
+if param compare SYS_AUTOSTART 24001
+then
+set AIRFRAME 24001_dodeca_cox
+fi
+if param compare SYS_AUTOSTART 16001
+then
+set AIRFRAME 16001_helicopter
+fi
+if param compare SYS_AUTOSTART 7001
+then
+set AIRFRAME 7001_hexa_+
+fi
+if param compare SYS_AUTOSTART 11001
+then
+set AIRFRAME 11001_hexa_cox
+fi
+if param compare SYS_AUTOSTART 6001
+then
+set AIRFRAME 6001_hexa_x
+fi
+if param compare SYS_AUTOSTART 6002
+then
+set AIRFRAME 6002_draco_r
+fi
+if param compare SYS_AUTOSTART 12002
+then
+set AIRFRAME 12002_steadidrone_mavrik
+fi
+if param compare SYS_AUTOSTART 9001
+then
+set AIRFRAME 9001_octo_+
+fi
+if param compare SYS_AUTOSTART 12001
+then
+set AIRFRAME 12001_octo_cox
+fi
+if param compare SYS_AUTOSTART 8001
+then
+set AIRFRAME 8001_octo_x
+fi
+if param compare SYS_AUTOSTART 5001
+then
+set AIRFRAME 5001_quad_+
+fi
+if param compare SYS_AUTOSTART 4040
+then
+set AIRFRAME 4040_reaper
+fi
+if param compare SYS_AUTOSTART 4041
+then
+set AIRFRAME 4041_beta75x
+fi
+if param compare SYS_AUTOSTART 10015
+then
+set AIRFRAME 10015_tbs_discovery
+fi
+if param compare SYS_AUTOSTART 10016
+then
+set AIRFRAME 10016_3dr_iris
+fi
+if param compare SYS_AUTOSTART 10017
+then
+set AIRFRAME 10017_steadidrone_qu4d
+fi
+if param compare SYS_AUTOSTART 10018
+then
+set AIRFRAME 10018_tbs_endurance
+fi
+if param compare SYS_AUTOSTART 4051
+then
+set AIRFRAME 4051_s250aq
+fi
+if param compare SYS_AUTOSTART 4001
+then
+set AIRFRAME 4001_quad_x
+fi
+if param compare SYS_AUTOSTART 4003
+then
+set AIRFRAME 4003_qavr5
+fi
+if param compare SYS_AUTOSTART 4009
+then
+set AIRFRAME 4009_qav250
+fi
+if param compare SYS_AUTOSTART 4010
+then
+set AIRFRAME 4010_dji_f330
+fi
+if param compare SYS_AUTOSTART 4011
+then
+set AIRFRAME 4011_dji_f450
+fi
+if param compare SYS_AUTOSTART 4014
+then
+set AIRFRAME 4014_s500
+fi
+if param compare SYS_AUTOSTART 4015
+then
+set AIRFRAME 4015_holybro_s500
+fi
+if param compare SYS_AUTOSTART 4016
+then
+set AIRFRAME 4016_holybro_px4vision
+fi
+if param compare SYS_AUTOSTART 4017
+then
+set AIRFRAME 4017_nxp_hovergames
+fi
+if param compare SYS_AUTOSTART 4020
+then
+set AIRFRAME 4020_hk_micro_pcb
+fi
+if param compare SYS_AUTOSTART 4030
+then
+set AIRFRAME 4030_3dr_solo
+fi
+if param compare SYS_AUTOSTART 4031
+then
+set AIRFRAME 4031_3dr_quad
+fi
+if param compare SYS_AUTOSTART 4050
+then
+set AIRFRAME 4050_generic_250
+fi
+if param compare SYS_AUTOSTART 4052
+then
+set AIRFRAME 4052_holybro_qav250
+fi
+if param compare SYS_AUTOSTART 4053
+then
+set AIRFRAME 4053_holybro_kopis2
+fi
+if param compare SYS_AUTOSTART 4060
+then
+set AIRFRAME 4060_dji_matrice_100
+fi
+if param compare SYS_AUTOSTART 4070
+then
+set AIRFRAME 4070_aerofc
+fi
+if param compare SYS_AUTOSTART 4071
+then
+set AIRFRAME 4071_ifo
+fi
+if param compare SYS_AUTOSTART 4072
+then
+set AIRFRAME 4072_draco
+fi
+if param compare SYS_AUTOSTART 4073
+then
+set AIRFRAME 4073_ifo-s
+fi
+if param compare SYS_AUTOSTART 4080
+then
+set AIRFRAME 4080_zmr250
+fi
+if param compare SYS_AUTOSTART 4090
+then
+set AIRFRAME 4090_nanomind
+fi
+if param compare SYS_AUTOSTART 4250
+then
+set AIRFRAME 4250_teal
+fi
+if param compare SYS_AUTOSTART 4500
+then
+set AIRFRAME 4500_clover4
+fi
+if param compare SYS_AUTOSTART 4900
+then
+set AIRFRAME 4900_crazyflie
+fi
+if param compare SYS_AUTOSTART 1001
+then
+set AIRFRAME 1001_rc_quad_x.hil
+fi
+if param compare SYS_AUTOSTART 1100
+then
+set AIRFRAME 1100_rc_quad_x_sih.hil
+fi
+if param compare SYS_AUTOSTART 4100
+then
+set AIRFRAME 4100_tiltquadrotor
+fi
+if param compare SYS_AUTOSTART 14001
+then
+set AIRFRAME 14001_tri_y_yaw+
+fi
+if param compare SYS_AUTOSTART 14002
+then
+set AIRFRAME 14002_tri_y_yaw-
+fi
+if param compare SYS_AUTOSTART 3000
+then
+set AIRFRAME 3000_generic_wing
+fi
+if param compare SYS_AUTOSTART 3030
+then
+set AIRFRAME 3030_io_camflyer
+fi
+if param compare SYS_AUTOSTART 3031
+then
+set AIRFRAME 3031_phantom
+fi
+if param compare SYS_AUTOSTART 3032
+then
+set AIRFRAME 3032_skywalker_x5
+fi
+if param compare SYS_AUTOSTART 3033
+then
+set AIRFRAME 3033_wingwing
+fi
+if param compare SYS_AUTOSTART 3034
+then
+set AIRFRAME 3034_fx79
+fi
+if param compare SYS_AUTOSTART 3035
+then
+set AIRFRAME 3035_viper
+fi
+if param compare SYS_AUTOSTART 3036
+then
+set AIRFRAME 3036_pigeon
+fi
+if param compare SYS_AUTOSTART 3037
+then
+set AIRFRAME 3037_parrot_disco_mod
+fi
+if param compare SYS_AUTOSTART 3100
+then
+set AIRFRAME 3100_tbs_caipirinha
+fi
+if param compare SYS_AUTOSTART 2106
+then
+set AIRFRAME 2106_albatross
+fi
+if param compare SYS_AUTOSTART 2200
+then
+set AIRFRAME 2200_mini_talon
+fi
+if param compare SYS_AUTOSTART 1000
+then
+set AIRFRAME 1000_rc_fw_easystar.hil
+fi
+if param compare SYS_AUTOSTART 2100
+then
+set AIRFRAME 2100_standard_plane
+fi
+if param compare SYS_AUTOSTART 2105
+then
+set AIRFRAME 2105_maja
+fi
+if param compare SYS_AUTOSTART 50000
+then
+set AIRFRAME 50000_generic_ground_vehicle
+fi
+if param compare SYS_AUTOSTART 50001
+then
+set AIRFRAME 50001_axialracing_ax10
+fi
+if param compare SYS_AUTOSTART 50002
+then
+set AIRFRAME 50002_traxxas_stampede_2wd
+fi
+if param compare SYS_AUTOSTART 50003
+then
+set AIRFRAME 50003_aion_robotics_r1_rover
+fi
+if param compare SYS_AUTOSTART 50004
+then
+set AIRFRAME 50004_nxpcup_car_dfrobot_gpx
+fi
+if param compare SYS_AUTOSTART 60000
+then
+set AIRFRAME 60000_uuv_generic
+fi
+if param compare SYS_AUTOSTART 60001
+then
+set AIRFRAME 60001_uuv_hippocampus
+fi
+if param compare SYS_AUTOSTART 60002
+then
+set AIRFRAME 60002_uuv_bluerov2_heavy
+fi
+if param compare SYS_AUTOSTART 1002
+then
+set AIRFRAME 1002_standard_vtol.hil
+fi
+if param compare SYS_AUTOSTART 13000
+then
+set AIRFRAME 13000_generic_vtol_standard
+fi
+if param compare SYS_AUTOSTART 13005
+then
+set AIRFRAME 13005_vtol_AAERT_quad
+fi
+if param compare SYS_AUTOSTART 13006
+then
+set AIRFRAME 13006_vtol_standard_delta
+fi
+if param compare SYS_AUTOSTART 13007
+then
+set AIRFRAME 13007_vtol_AAVVT_quad
+fi
+if param compare SYS_AUTOSTART 13008
+then
+set AIRFRAME 13008_QuadRanger
+fi
+if param compare SYS_AUTOSTART 13009
+then
+set AIRFRAME 13009_vtol_spt_ranger
+fi
+if param compare SYS_AUTOSTART 13013
+then
+set AIRFRAME 13013_deltaquad
+fi
+if param compare SYS_AUTOSTART 13014
+then
+set AIRFRAME 13014_vtol_babyshark
+fi
+if param compare SYS_AUTOSTART 13001
+then
+set AIRFRAME 13001_caipirinha_vtol
+fi
+if param compare SYS_AUTOSTART 13200
+then
+set AIRFRAME 13200_generic_vtol_tailsitter
+fi
+if param compare SYS_AUTOSTART 13050
+then
+set AIRFRAME 13050_generic_vtol_octo
+fi
+if param compare SYS_AUTOSTART 13003
+then
+set AIRFRAME 13003_quad_tailsitter
+fi
+if param compare SYS_AUTOSTART 13004
+then
+set AIRFRAME 13004_quad+_tailsitter
+fi
+if param compare SYS_AUTOSTART 13002
+then
+set AIRFRAME 13002_firefly6
+fi
+if param compare SYS_AUTOSTART 13010
+then
+set AIRFRAME 13010_claire
+fi
+if param compare SYS_AUTOSTART 13012
+then
+set AIRFRAME 13012_convergence
+fi
+if [ ${AIRFRAME} != none ]
+then
+. /etc/init.d/airframes/${AIRFRAME}
+else
+echo "ERROR  [init] No file matches SYS_AUTOSTART value found in : /etc/init.d/airframes"
+echo "ERROR  [init] No file matches SYS_AUTOSTART value found in : /etc/init.d/airframes" >> $LOG_FILE
+param set SYS_AUTOSTART 0
+tone_alarm ${TUNE_ERR}
+fi
+unset AIRFRAME

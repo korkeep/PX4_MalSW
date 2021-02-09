@@ -1,0 +1,9 @@
+. ${R}etc/init.d/rc.uuv_defaults
+if [ $AUTOCNF = yes ]
+then
+param set NAV_DLL_ACT 0
+param set CBRK_AIRSPD_CHK 162128
+fi
+set MAV_TYPE 12
+param set MAV_TYPE ${MAV_TYPE}
+set MIXER uuv_x

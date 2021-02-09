@@ -1,0 +1,13 @@
+# Target labels
+ flightgear_bridge
+# Source files and their labels
+/home/kss/PX4/build/px4_sitl_default/platforms/posix/CMakeFiles/flightgear_bridge
+/home/kss/PX4/build/px4_sitl_default/platforms/posix/CMakeFiles/flightgear_bridge.rule
+/home/kss/PX4/build/px4_sitl_default/platforms/posix/CMakeFiles/flightgear_bridge-complete.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/flightgear_bridge/flightgear_bridge-install.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/flightgear_bridge/flightgear_bridge-mkdir.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/flightgear_bridge/flightgear_bridge-download.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/flightgear_bridge/flightgear_bridge-update.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/flightgear_bridge/flightgear_bridge-patch.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/flightgear_bridge/flightgear_bridge-configure.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/flightgear_bridge/flightgear_bridge-build.rule

@@ -1,0 +1,3 @@
+. ${R}etc/init.d/rc.mc_defaults
+set MIXER hexa_cox
+set PWM_OUT 12345678

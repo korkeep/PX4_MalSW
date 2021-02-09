@@ -1,0 +1,13 @@
+# Target labels
+ FlameGraph
+# Source files and their labels
+/home/kss/PX4/build/nxp_fmuk66-v3_default/platforms/nuttx/CMakeFiles/FlameGraph
+/home/kss/PX4/build/nxp_fmuk66-v3_default/platforms/nuttx/CMakeFiles/FlameGraph.rule
+/home/kss/PX4/build/nxp_fmuk66-v3_default/platforms/nuttx/CMakeFiles/FlameGraph-complete.rule
+/home/kss/PX4/build/nxp_fmuk66-v3_default/external/Stamp/FlameGraph/FlameGraph-install.rule
+/home/kss/PX4/build/nxp_fmuk66-v3_default/external/Stamp/FlameGraph/FlameGraph-mkdir.rule
+/home/kss/PX4/build/nxp_fmuk66-v3_default/external/Stamp/FlameGraph/FlameGraph-download.rule
+/home/kss/PX4/build/nxp_fmuk66-v3_default/external/Stamp/FlameGraph/FlameGraph-update.rule
+/home/kss/PX4/build/nxp_fmuk66-v3_default/external/Stamp/FlameGraph/FlameGraph-patch.rule
+/home/kss/PX4/build/nxp_fmuk66-v3_default/external/Stamp/FlameGraph/FlameGraph-configure.rule
+/home/kss/PX4/build/nxp_fmuk66-v3_default/external/Stamp/FlameGraph/FlameGraph-build.rule

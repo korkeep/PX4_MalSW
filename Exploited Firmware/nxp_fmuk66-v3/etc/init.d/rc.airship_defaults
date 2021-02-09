@@ -1,0 +1,3 @@
+set VEHICLE_TYPE airship
+set MIXER_AUX pass
+set PWM_AUX_OUT 1234

@@ -1,0 +1,28 @@
+set SERIAL_DEV none
+if param compare "$PRT" 201; then
+if [ "x$PRT_GPS1_" = "x" ]; then
+set SERIAL_DEV /dev/ttyS3
+set BAUD_PARAM SER_GPS1_BAUD
+set PRT_GPS1_ 1
+else
+echo "Conflicting config for /dev/ttyS3"
+fi
+fi
+if param compare "$PRT" 101; then
+if [ "x$PRT_TEL1_" = "x" ]; then
+set SERIAL_DEV /dev/ttyS4
+set BAUD_PARAM SER_TEL1_BAUD
+set PRT_TEL1_ 1
+else
+echo "Conflicting config for /dev/ttyS4"
+fi
+fi
+if param compare "$PRT" 102; then
+if [ "x$PRT_TEL2_" = "x" ]; then
+set SERIAL_DEV /dev/ttyS1
+set BAUD_PARAM SER_TEL2_BAUD
+set PRT_TEL2_ 1
+else
+echo "Conflicting config for /dev/ttyS1"
+fi
+fi

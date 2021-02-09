@@ -1,0 +1,13 @@
+# Target labels
+ mavsdk_tests
+# Source files and their labels
+/home/kss/PX4/build/px4_sitl_default/platforms/posix/CMakeFiles/mavsdk_tests
+/home/kss/PX4/build/px4_sitl_default/platforms/posix/CMakeFiles/mavsdk_tests.rule
+/home/kss/PX4/build/px4_sitl_default/platforms/posix/CMakeFiles/mavsdk_tests-complete.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/mavsdk_tests/mavsdk_tests-install.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/mavsdk_tests/mavsdk_tests-mkdir.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/mavsdk_tests/mavsdk_tests-download.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/mavsdk_tests/mavsdk_tests-update.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/mavsdk_tests/mavsdk_tests-patch.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/mavsdk_tests/mavsdk_tests-configure.rule
+/home/kss/PX4/build/px4_sitl_default/external/Stamp/mavsdk_tests/mavsdk_tests-build.rule
