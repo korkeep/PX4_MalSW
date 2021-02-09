@@ -5,7 +5,7 @@ PX4-MalSW 프로젝트는 드론 공격 사례를 바탕으로 공격 시나리�
 
 ## PX4 Autopilot
 ![logo](https://user-images.githubusercontent.com/20378368/107306618-860e0000-6ac8-11eb-8c49-74e945c30e12.png)  
-Ardupilot is an open source, Unmanned Vehicle Autopilot software, capable of following things
+Autopilot is an open source, Unmanned Vehicle Autopilot software, capable of following things
 - Multirotor drones
 - Fixed-wing and VTOL aircraft
 - Helicopters
