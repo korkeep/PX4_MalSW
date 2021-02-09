@@ -1,0 +1,8 @@
+LN: include/arch to arch/arm/include
+LN: include/arch/board to /home/kss/PX4/build/nxp_fmuk66-v3_default/NuttX/nuttx/../nuttx-config/include
+LN: include/arch/chip to arch/arm/include/kinetis
+LN: arch/arm/src/board to /home/kss/PX4/build/nxp_fmuk66-v3_default/NuttX/nuttx/../nuttx-config/src
+LN: arch/arm/src/chip to arch/arm/src/kinetis
+LN: /home/kss/PX4/build/nxp_fmuk66-v3_default/NuttX/nuttx/drivers/platform to /home/kss/PX4/build/nxp_fmuk66-v3_default/NuttX/nuttx/drivers/dummy
+LN: platform/board to /home/kss/PX4/build/nxp_fmuk66-v3_default/NuttX/apps/platform/dummy
+DEBUG: kconfiglib kconfig-conf wrapper, arguments: --olddefconfig Kconfig

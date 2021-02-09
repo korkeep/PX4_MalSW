@@ -1,0 +1,8 @@
+. ${R}etc/init.d/rc.airship_defaults
+if [ $AUTOCNF = yes ]
+then
+param set COM_PREARM_MODE 2
+param set CBRK_IO_SAFETY 22027
+fi
+set MIXER cloudship
+set PWM_OUT 1234

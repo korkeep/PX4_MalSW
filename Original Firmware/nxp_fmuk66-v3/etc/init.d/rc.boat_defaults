@@ -1,0 +1,13 @@
+set VEHICLE_TYPE rover
+if [ $AUTOCNF = yes ]
+then
+param set MIS_LTRMIN_ALT 0.01
+param set MIS_TAKEOFF_ALT 0.01
+param set NAV_DLL_ACT 0
+param set NAV_ACC_RAD 2
+param set NAV_FW_ALT_RAD 1000
+fi
+set PWM_OUT 1234
+set PWM_RATE 50
+set MIXER_AUX pass
+set PWM_AUX_OUT 1234

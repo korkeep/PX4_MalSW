@@ -1,0 +1,6 @@
+set AIRFRAME none
+if [ ${AIRFRAME} != none ]
+then
+. /etc/init.d/airframes/${AIRFRAME}
+fi
+unset AIRFRAME

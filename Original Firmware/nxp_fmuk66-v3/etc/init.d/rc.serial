@@ -1,0 +1,130 @@
+set PRT_F ${R}etc/init.d/rc.serial_port
+set PRT SENS_CM8JL65_CFG
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting Lanbao PSK-CM8JL65-CC5 on $SERIAL_DEV"
+cm8jl65 start -d ${SERIAL_DEV} -R p:SENS_CM8JL65_R_0
+fi
+set PRT SENS_LEDDAR1_CFG
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting LeddarOne Rangefinder on $SERIAL_DEV"
+leddar_one start -d ${SERIAL_DEV}
+fi
+set PRT SENS_SF0X_CFG
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting Lightware Laser Rangefinder (serial) on $SERIAL_DEV"
+lightware_laser_serial start -d ${SERIAL_DEV}
+fi
+set PRT SENS_TFMINI_CFG
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting Benewake TFmini Rangefinder on $SERIAL_DEV"
+tfmini start -d ${SERIAL_DEV}
+fi
+set PRT SENS_ULAND_CFG
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting uLanding Radar on $SERIAL_DEV"
+ulanding_radar start ${SERIAL_DEV}
+fi
+set PRT GPS_2_CONFIG
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting Secondary GPS on $SERIAL_DEV"
+set DUAL_GPS_ARGS "-e ${SERIAL_DEV} -g p:${BAUD_PARAM}"
+fi
+set PRT GPS_1_CONFIG
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting Main GPS on $SERIAL_DEV"
+gps start -d ${SERIAL_DEV} -b p:${BAUD_PARAM} ${DUAL_GPS_ARGS}
+fi
+set PRT RBCLW_SER_CFG
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting Roboclaw Driver on $SERIAL_DEV"
+roboclaw start ${SERIAL_DEV} ${BAUD_PARAM}
+fi
+set PRT TEL_FRSKY_CONFIG
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting FrSky Telemetry on $SERIAL_DEV"
+frsky_telemetry start -d ${SERIAL_DEV}
+fi
+set PRT TEL_HOTT_CONFIG
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting HoTT Telemetry on $SERIAL_DEV"
+hott_telemetry start -d ${SERIAL_DEV}
+fi
+set PRT ISBD_CONFIG
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting Iridium (with MAVLink) on $SERIAL_DEV"
+usleep 200000
+if iridiumsbd start -d ${SERIAL_DEV}
+then
+mavlink start -d /dev/iridium -m iridium -b 115200
+else
+tune_control play error
+fi
+fi
+set PRT MAV_0_CONFIG
+set i 0
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting MAVLink on $SERIAL_DEV"
+set MAV_ARGS "-b p:${BAUD_PARAM} -m p:MAV_${i}_MODE -r p:MAV_${i}_RATE"
+if param compare MAV_${i}_FORWARD 1
+then
+set MAV_ARGS "${MAV_ARGS} -f"
+fi
+if param compare MAV_${i}_RADIO_CTL 1
+then
+set MAV_ARGS "${MAV_ARGS} -s"
+fi
+mavlink start -d ${SERIAL_DEV} ${MAV_ARGS} -x
+fi
+set PRT MAV_1_CONFIG
+set i 1
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting MAVLink on $SERIAL_DEV"
+set MAV_ARGS "-b p:${BAUD_PARAM} -m p:MAV_${i}_MODE -r p:MAV_${i}_RATE"
+if param compare MAV_${i}_FORWARD 1
+then
+set MAV_ARGS "${MAV_ARGS} -f"
+fi
+if param compare MAV_${i}_RADIO_CTL 1
+then
+set MAV_ARGS "${MAV_ARGS} -s"
+fi
+mavlink start -d ${SERIAL_DEV} ${MAV_ARGS} -x
+fi
+set PRT MAV_2_CONFIG
+set i 2
+. $PRT_F
+if [ $SERIAL_DEV != none ]; then
+echo "Starting MAVLink on $SERIAL_DEV"
+set MAV_ARGS "-b p:${BAUD_PARAM} -m p:MAV_${i}_MODE -r p:MAV_${i}_RATE"
+if param compare MAV_${i}_FORWARD 1
+then
+set MAV_ARGS "${MAV_ARGS} -f"
+fi
+if param compare MAV_${i}_RADIO_CTL 1
+then
+set MAV_ARGS "${MAV_ARGS} -s"
+fi
+mavlink start -d ${SERIAL_DEV} ${MAV_ARGS} -x
+fi
+unset PRT_GPS1_
+unset PRT_TEL1_
+unset PRT_TEL2_
+unset i
+unset SERIAL_DEV
+unset PRT
+unset PRT_F
+unset BAUD_PARAM
+unset MAV_ARGS

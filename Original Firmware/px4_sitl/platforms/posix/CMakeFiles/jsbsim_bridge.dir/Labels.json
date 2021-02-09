@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/kss/PX4/build/px4_sitl_default/platforms/posix/CMakeFiles/jsbsim_bridge"
+		},
+		{
+			"file" : "/home/kss/PX4/build/px4_sitl_default/platforms/posix/CMakeFiles/jsbsim_bridge.rule"
+		},
+		{
+			"file" : "/home/kss/PX4/build/px4_sitl_default/platforms/posix/CMakeFiles/jsbsim_bridge-complete.rule"
+		},
+		{
+			"file" : "/home/kss/PX4/build/px4_sitl_default/external/Stamp/jsbsim_bridge/jsbsim_bridge-install.rule"
+		},
+		{
+			"file" : "/home/kss/PX4/build/px4_sitl_default/external/Stamp/jsbsim_bridge/jsbsim_bridge-mkdir.rule"
+		},
+		{
+			"file" : "/home/kss/PX4/build/px4_sitl_default/external/Stamp/jsbsim_bridge/jsbsim_bridge-download.rule"
+		},
+		{
+			"file" : "/home/kss/PX4/build/px4_sitl_default/external/Stamp/jsbsim_bridge/jsbsim_bridge-update.rule"
+		},
+		{
+			"file" : "/home/kss/PX4/build/px4_sitl_default/external/Stamp/jsbsim_bridge/jsbsim_bridge-patch.rule"
+		},
+		{
+			"file" : "/home/kss/PX4/build/px4_sitl_default/external/Stamp/jsbsim_bridge/jsbsim_bridge-configure.rule"
+		},
+		{
+			"file" : "/home/kss/PX4/build/px4_sitl_default/external/Stamp/jsbsim_bridge/jsbsim_bridge-build.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"jsbsim_bridge"
+		],
+		"name" : "jsbsim_bridge"
+	}
+}

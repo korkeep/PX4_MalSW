@@ -1,0 +1,3 @@
+ekf2 start &
+rover_pos_control start
+land_detector start rover

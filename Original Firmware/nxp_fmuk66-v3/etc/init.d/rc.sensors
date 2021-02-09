@@ -1,0 +1,91 @@
+if ! ver hwcmp AEROFC_V1 OMNIBUS_F4SD
+then
+if ! ver hwcmp BITCRAZE_CRAZYFLIE
+then
+pwm_out i2c 1 100000
+pwm_out i2c 2 100000
+fi
+fi
+if param compare -s SENS_EN_BATT 1
+then
+batt_smbus start -X
+fi
+if param compare -s SENS_EN_LL40LS 1
+then
+if pwm_input start
+then
+ll40ls_pwm start
+fi
+fi
+if param compare FD_EXT_ATS_EN 1
+then
+pwm_input start
+fi
+if param compare -s SENS_EN_LL40LS 2
+then
+ll40ls start -X
+fi
+if param compare -s SENS_EN_MPDT 1
+then
+mappydot start -X
+fi
+if param greater -s SENS_EN_MB12XX 0
+then
+mb12xx start -X
+fi
+if param greater -s SENS_EN_PGA460 0
+then
+pga460 start
+fi
+if param greater -s SENS_EN_SF1XX 0
+then
+lightware_laser_i2c start -X
+fi
+if param compare -s SENS_EN_SR05 1
+then
+srf05 start
+fi
+if param compare -s SENS_EN_THERMAL 1
+then
+heater start
+fi
+if param greater -s SENS_EN_TRANGER 0
+then
+teraranger start -X
+fi
+if param greater -s SENS_EN_PMW3901 0
+then
+pmw3901 -S start
+fi
+if param greater -s SENS_EN_PAW3902 0
+then
+paw3902 -S start
+fi
+if param compare SENS_EXT_I2C_PRB 1
+then
+ak09916 -X -R 6 -q start # external AK09916 (Here2) is rotated 270 degrees yaw
+hmc5883 -T -X -q start
+ist8308 -X -q start
+ist8310 -X -q start
+lis2mdl -X -q start
+lis3mdl -X -q start
+qmc5883l -X -q start
+rm3100 -X -q start
+if [ ${VEHICLE_TYPE} = fw -o ${VEHICLE_TYPE} = vtol ]
+then
+if param compare CBRK_AIRSPD_CHK 0
+then
+sdp3x_airspeed start -X -q
+sdp3x_airspeed start -X -a 0x22 -q
+if [ $BOARD_FMUV3 = 21 ]
+then
+ms5525_airspeed start -X -b 2 -q
+else
+ms5525_airspeed start -X -q
+fi
+ms4525_airspeed start -X -q
+ets_airspeed start -X -q
+fi
+fi
+fi
+sensors start
