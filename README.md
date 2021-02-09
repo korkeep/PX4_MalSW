@@ -5,7 +5,7 @@ PX4-MalSW 프로젝트는 드론 공격 사례를 바탕으로 공격 시나리�
 
 ## PX4 Autopilot
 ![logo](https://user-images.githubusercontent.com/20378368/107306618-860e0000-6ac8-11eb-8c49-74e945c30e12.png)  
-[PX4 autopilot](https://docs.px4.io/master/en/) is an [Open-Source](https://github.com/PX4/PX4-Autopilot) autopilot system for unmanned arial vehicle  
+[PX4 autopilot](https://docs.px4.io/master/en/) is an [Open-source](https://github.com/PX4/PX4-Autopilot) autopilot system for Unmanned Arial Vehicle  
 - [QGroundControl](http://qgroundcontrol.com/)
 - [MAVLink Protocol](https://mavlink.io/en/)
 - 2D/3D aerial maps
