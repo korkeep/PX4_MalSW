@@ -1,8 +1,9 @@
 # PX4-MalSW
 ## Development of Malicious Drone Software Using PX4 Autopilot
 PX4-MalSW 프로젝트는 드론 공격 사례를 바탕으로 공격 시나리오를 체계화하고, PX4 Autopilot을 활용해 공격 시나리오에 해당하는 악성 소프트웨어를 구현함으로써, 서비스 개발자들에게 어떤 공격에 대비해야 하는지 방향을 제시하는 것을 목표로 한다.
+- [2020 KSC 정보보안 및 고신뢰 컴퓨팅 우수 논문](http://www.kiise.or.kr/academy/board/academyNewsView.fa?MENU_ID=080100&sch_add_bd=%ED%95%99%ED%9A%8C%EC%86%8C%EC%8B%9D&NUM=2127)
 
-## PX4 Ardupilot
+## PX4 Autopilot
 ![logo](https://user-images.githubusercontent.com/20378368/107306618-860e0000-6ac8-11eb-8c49-74e945c30e12.png)  
 Ardupilot is an open source, Unmanned Vehicle Autopilot software, capable of following things
 - Multirotor drones
@@ -20,15 +21,15 @@ Ardupilot is an open source, Unmanned Vehicle Autopilot software, capable of fol
 ![3-factor](https://user-images.githubusercontent.com/20378368/107300818-940a5380-6abd-11eb-932b-fcd02a522b9f.png)
 | Content | Description |
 | --- | --- |
-| Aircraft | 드론 기기 내부의 상태 이상 |
-| GCS | 드론의 외부, GCS 상태 이상 |
-| Flight Stack | 드론 비행 과정에서 동적 요소에 의한 상태 이상 |
+| Drone Aircraft | 드론 기기 내부의 상태 이상 |
+| Ground Control Station | 드론의 외부, GCS 상태 이상 |
+| Drone Flight Stack | 드론 비행 과정에서 동적 요소에 의한 상태 이상 |
 
 ## Let's Hack a Drone
 ### Scenario #1: Generating Control Error
 - **데모 영상**: [YouTube Link](https://youtu.be/SOWdo8h1ZJA)
-- **공격 유형**: 드론 기기 내부의 상태 이상, 드론 비행 과정에서 동적 요소에 의한 상태 이상
-- **공격 지점**: 드론에 내장된 펌웨어, Commander.cpp
+- **공격 유형**: Drone Aircraft, Drone Flight Stack
+- **공격 지점**: Drone Firmware, Commander.cpp
 - **공격 방법**:  
 ![image](https://user-images.githubusercontent.com/20378368/107301836-9a99ca80-6abf-11eb-9f4d-377eb12872bd.png)  
 ```
@@ -58,8 +59,8 @@ last_setpoint_y = (int)(temp_setpoint.y * 10000);
 ```
 ### Scenario #2: Unintended Mission Conduct
 - **데모 영상**: [YouTube Link](https://youtu.be/edIfXTZRIV8)
-- **공격 유형**: 드론 기기 내부의 상태 이상, 드론의 외부, GCS 상태 이상, 드론 비행 과정에서 동적 요소에 의한 상태 이상
-- **공격 지점**: 드론에 내장된 펌웨어, Commander.cpp
+- **공격 유형**: Drone Aircraft, Ground Control Station, Drone Flight Stack
+- **공격 지점**: Drone Firmware, Commander.cpp
 - **공격 방법**:  
 ![image](https://user-images.githubusercontent.com/20378368/107302293-82767b00-6ac0-11eb-91d9-1a7af3b3755f.png)
 ```
@@ -74,6 +75,7 @@ if (dm_read(DM_KEY_MISSION_STATE, 0, &mission, sizeof(mission_s)) == sizeof(miss
             PX4_INFO("Mission #%d loaded, %u WPs, curr: %d", mission.dataman_id, mission.count, mission.current_seq);
         }
     }
+}
 ```
 ```
 ③ 업데이트된 Mission을 Publish
@@ -110,13 +112,13 @@ main_state_transition(status, commander_state_s::MAIN_STATE_AUTO_MISSION, status
 ```
 ⑦ Mission이 끝나면 MESL02_Mission_flag를 false로 Set
 if(_mission_result_sub.get().finished){
-		MESL02_Mission_flag = false;
-	}
+  MESL02_Mission_flag = false;
+}
 ```
 ### Scenario #3: RC Connection Lost
 - **데모 영상**: [YouTube Link](https://youtu.be/DLxIkqdxU0k)
-- **공격 유형**: 드론의 외부, GCS 상태 이상, 드론 비행 과정에서 동적 요소에 의한 상태 이상
-- **공격 지점**: 드론에 내장된 펌웨어, Commander.cpp
+- **공격 유형**: Ground Control Station, Drone Flight Stack
+- **공격 지점**: Drone Firmware, Commander.cpp
 - **공격 방법**:  
 ![image](https://user-images.githubusercontent.com/20378368/107302870-645d4a80-6ac1-11eb-93f8-88b8ca5c313b.png)
 ```
