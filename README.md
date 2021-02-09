@@ -19,10 +19,10 @@ PX4-MalSW 프로젝트는 드론 공격 사례를 바탕으로 공격 시나리�
 | Content | Description |
 | --- | --- |
 | Drone Aircraft | 드론 기기 내부의 상태 이상 |
-| Ground Control Station | 드론의 외부, GCS 상태 이상 |
+| Ground Control System | 드론의 외부, GCS 상태 이상 |
 | Drone Flight Stack | 드론 비행 과정에서 동적 요소에 의한 상태 이상 |
 
-## Let's Hack a Drone
+## Let's Hack a Drone 🐱‍💻
 ### Scenario #1: Generating Control Error
 - **데모 영상**: [YouTube Link](https://youtu.be/SOWdo8h1ZJA)
 - **공격 유형**: Drone Aircraft, Drone Flight Stack
