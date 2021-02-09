@@ -2,8 +2,20 @@
 ## Development of Malicious Drone Software Using PX4 Autopilot
 PX4-MalSW 프로젝트는 드론 공격 사례를 바탕으로 공격 시나리오를 체계화하고, PX4 Autopilot을 활용해 공격 시나리오에 해당하는 악성 소프트웨어를 구현함으로써, 서비스 개발자들에게 어떤 공격에 대비해야 하는지 방향을 제시하는 것을 목표로 한다.
 
+## PX4 Ardupilot
+![logo](https://user-images.githubusercontent.com/20378368/107306618-860e0000-6ac8-11eb-8c49-74e945c30e12.png)
+Ardupilot is an open source, Unmanned Vehicle Autopilot software, capable of following things
+- Multirotor drones
+- Fixed-wing and VTOL aircraft
+- Helicopters
+- Ground rovers
+- Boats
+- Submarines
+- Antenna trackers
+
 ## PX4 Architecture
-![arch](https://user-images.githubusercontent.com/20378368/107301110-21e63e80-6abe-11eb-9145-b88c1e9758a4.PNG)
+The diagram below provides a detailed overview of the building blocks of PX4. The top part of the diagram contains middleware blocks, while the lower section shows the components of the flight stack.
+  ![arch](https://user-images.githubusercontent.com/20378368/107301110-21e63e80-6abe-11eb-9145-b88c1e9758a4.PNG)
 
 ## 3-Factor of Drone Attack
 ![3-factor](https://user-images.githubusercontent.com/20378368/107300818-940a5380-6abd-11eb-932b-fcd02a522b9f.png)
@@ -19,7 +31,7 @@ PX4-MalSW 프로젝트는 드론 공격 사례를 바탕으로 공격 시나리�
 - **공격 유형**: 드론 기기 내부의 상태 이상, 드론 비행 과정에서 동적 요소에 의한 상태 이상
 - **공격 지점**: 드론에 내장된 펌웨어, Commander.cpp
 - **공격 방법**:
-![image](https://user-images.githubusercontent.com/20378368/107301836-9a99ca80-6abf-11eb-9f4d-377eb12872bd.png)
+  ![image](https://user-images.githubusercontent.com/20378368/107301836-9a99ca80-6abf-11eb-9f4d-377eb12872bd.png)
   ① 새로운 Data가 Publish 됐는지 확인
 ```
 if(last_setpoint_x != (int)(_manual_control_setpoint.x * 10000) && last_setpoint_y != (int)(_manual_control_setpoint.y *10000))
@@ -50,7 +62,7 @@ last_setpoint_y = (int)(temp_setpoint.y * 10000);
 - **공격 유형**: 드론 기기 내부의 상태 이상, 드론의 외부, GCS 상태 이상, 드론 비행 과정에서 동적 요소에 의한 상태 이상
 - **공격 지점**: 드론에 내장된 펌웨어, Commander.cpp
 - **공격 방법**:
-![image](https://user-images.githubusercontent.com/20378368/107302293-82767b00-6ac0-11eb-91d9-1a7af3b3755f.png)
+  ![image](https://user-images.githubusercontent.com/20378368/107302293-82767b00-6ac0-11eb-91d9-1a7af3b3755f.png)
   ① Mission 구조체 선언
 ```
 mission_s mission;
@@ -107,7 +119,7 @@ if(_mission_result_sub.get().finished){
 - **공격 유형**: 드론의 외부, GCS 상태 이상, 드론 비행 과정에서 동적 요소에 의한 상태 이상
 - **공격 지점**: 드론에 내장된 펌웨어, Commander.cpp
 - **공격 방법**:
-![image](https://user-images.githubusercontent.com/20378368/107302870-645d4a80-6ac1-11eb-93f8-88b8ca5c313b.png)
+  ![image](https://user-images.githubusercontent.com/20378368/107302870-645d4a80-6ac1-11eb-93f8-88b8ca5c313b.png)
   ① 1000번의 Loss Signal을 보냄
 ```
 else if(MESL03_Loss_flag <= 1000)
