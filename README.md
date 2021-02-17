@@ -1,6 +1,6 @@
-# PX4-MalSW
+# PX4-Malicious
 ## Development of Malicious Drone Software Using PX4 Autopilot
-PX4-MalSW 프로젝트는 드론 공격 사례를 바탕으로 공격 시나리오를 체계화하고, PX4 Autopilot을 활용해 공격 시나리오에 해당하는 악성 소프트웨어를 구현함으로써, 서비스 개발자들에게 어떤 공격에 대비해야 하는지 방향을 제시하는 것을 목표로 한다.
+PX4-Malicious 프로젝트는 드론 공격 사례를 바탕으로 공격 시나리오를 체계화하고, PX4 Autopilot을 활용해 공격 시나리오에 해당하는 악성 소프트웨어를 구현함으로써, 서비스 개발자들에게 어떤 공격에 대비해야 하는지 방향을 제시하는 것을 목표로 한다.
 - [2020 KSC 정보보안 및 고신뢰 컴퓨팅 우수 논문 선정](http://www.kiise.or.kr/academy/board/academyNewsView.fa?MENU_ID=080100&sch_add_bd=%ED%95%99%ED%9A%8C%EC%86%8C%EC%8B%9D&NUM=2127)
 
 ## PX4 Autopilot
