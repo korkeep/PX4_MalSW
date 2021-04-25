@@ -1,6 +1,6 @@
 # PX4-Malicious
-The PX4-Malicious project aims to provide a direction for which attacks to prepare for service developers by organizing attack scenarios based on drone attack cases and implementing malicious software corresponding to attack scenarios using PX4 Autopilot.  
-- [Selected as an excellent paper in 2020 KSC Information Security and High-Reliability Computing](http://www.kiise.or.kr/academy/board/academyNewsView.fa?MENU_ID=080100&sch_add_bd=%ED%95%99%ED%9A%8C%EC%86%8C%EC%8B%9D&NUM=2127)
+The **PX4-Malicious** project aims to provide a direction for which attacks to prepare for service developers by organizing attack scenarios based on drone attack cases and implementing malicious software corresponding to attack scenarios using PX4 Autopilot.  
+- [Selected as an Excellent Paper in 2020 KSC Information Security and High-Reliability Computing](http://www.kiise.or.kr/academy/board/academyNewsView.fa?MENU_ID=080100&sch_add_bd=%ED%95%99%ED%9A%8C%EC%86%8C%EC%8B%9D&NUM=2127)
 
 ## PX4 Autopilot
 <img title="Architecture" alt="PX4" src="https://github.com/korkeep/PX4-TrustZone/raw/main/Architecture/PX4.png" width="500"/>
@@ -12,12 +12,12 @@ The PX4-Malicious project aims to provide a direction for which attacks to prepa
 - [MAVLink Protocol](https://mavlink.io/en/)
 
 ## 3-Factor of Drone Attack
-![3-factor](https://user-images.githubusercontent.com/20378368/107300818-940a5380-6abd-11eb-932b-fcd02a522b9f.png)
+<img title="3-Factors" alt="PX4-3Factors" src="https://user-images.githubusercontent.com/20378368/107300818-940a5380-6abd-11eb-932b-fcd02a522b9f.png" width="500"/>
 | Content | Description |
 | --- | --- |
-| Drone Aircraft | Inside the drone device |
-| Ground Control System | External factors, GCS |
-| Drone Flight Stack | Dynamic elements in the flight process |
+| Drone Aircraft | Internal factors |
+| Ground Control System | External factors |
+| Drone Flight Stack | Dynamic factors in the flight process |
 
 ## Let's Hack a Drone 👿
 ### Scenario #1: Generating Control Error
@@ -25,7 +25,7 @@ The PX4-Malicious project aims to provide a direction for which attacks to prepa
 - **Attack Type**: Drone Aircraft, Drone Flight Stack
 - **Attack Point**: Drone Firmware, Commander.cpp
 - **Attack Code**:  
-<img title="S1" alt="PX4-S1" src="https://user-images.githubusercontent.com/20378368/107301836-9a99ca80-6abf-11eb-9f4d-377eb12872bd.png" width="400"/>  
+<img title="S1" alt="PX4-S1" src="https://user-images.githubusercontent.com/20378368/107301836-9a99ca80-6abf-11eb-9f4d-377eb12872bd.png" width="600"/>  
 
 ```
 # Step 1: Check whether new data has been published
@@ -58,7 +58,7 @@ last_setpoint_y = (int)(temp_setpoint.y * 10000);
 - **Attack Type**: Drone Aircraft, Ground Control Station, Drone Flight Stack
 - **Attack Point**: Drone Firmware, Commander.cpp
 - **Attack Code**:  
-<img title="S2" alt="PX4-S2" src="https://user-images.githubusercontent.com/20378368/107302293-82767b00-6ac0-11eb-91d9-1a7af3b3755f.png" width="300"/>  
+<img title="S2" alt="PX4-S2" src="https://user-images.githubusercontent.com/20378368/107302293-82767b00-6ac0-11eb-91d9-1a7af3b3755f.png" width="500"/>  
 
 ```
 # Step 1: Mission structure declaration
@@ -118,7 +118,8 @@ if(_mission_result_sub.get().finished){
 - **Attack Type**: Ground Control Station, Drone Flight Stack
 - **Attack Point**: Drone Firmware, Commander.cpp
 - **Attack Code**:  
-<img title="S3" alt="PX4-S3" src="https://user-images.githubusercontent.com/20378368/107302870-645d4a80-6ac1-11eb-93f8-88b8ca5c313b.png" width="400"/> 
+<img title="S3" alt="PX4-S3" src="https://user-images.githubusercontent.com/20378368/107302870-645d4a80-6ac1-11eb-93f8-88b8ca5c313b.png" width="600"/> 
+
 ```
 # Step 1: Sending 1000 Loss Signals
 else if(MESL03_Loss_flag <= 1000)
