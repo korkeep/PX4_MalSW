@@ -3,8 +3,6 @@ The **PX4-Malicious** project aims to provide a direction for which attacks to p
 - [Selected as an Excellent Paper in 2020 KSC Information Security and High-Reliability Computing](http://www.kiise.or.kr/academy/board/academyNewsView.fa?MENU_ID=080100&sch_add_bd=%ED%95%99%ED%9A%8C%EC%86%8C%EC%8B%9D&NUM=2127)
 
 ## PX4 Autopilot
-<img title="Architecture" alt="PX4" src="https://github.com/korkeep/PX4-TrustZone/raw/main/Architecture/PX4.png" width="500"/>
-
 **PX4 Autopilot** is an open-source autopilot system for Unmanned Aerial Vehicle. **PX4 Autopilot** guarantees scalability so that the PX4 ecosystem can be maintained by providing a standard for drone hardware and software.  
 - [PX4 Github](https://github.com/PX4/PX4-Autopilot)
 - [PX4 Autopilot](https://docs.px4.io/master/en/)
@@ -12,8 +10,6 @@ The **PX4-Malicious** project aims to provide a direction for which attacks to p
 - [MAVLink Protocol](https://mavlink.io/en/)
 
 ## 3-Factor of Drone Attack
-<img title="3-Factors" alt="PX4-3Factors" src="https://user-images.githubusercontent.com/20378368/107300818-940a5380-6abd-11eb-932b-fcd02a522b9f.png" width="500"/>
-
 | Content | Description |
 | --- | --- |
 | Drone Aircraft | Internal factors |
