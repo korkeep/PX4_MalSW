@@ -22,8 +22,6 @@ The **PX4-Malicious** project aims to provide a direction for which attacks to p
 - **Attack Type**: Drone Aircraft, Drone Flight Stack
 - **Attack Point**: Drone Firmware, Commander.cpp
 - **Attack Code**:  
-<img title="S1" alt="PX4-S1" src="https://user-images.githubusercontent.com/20378368/107301836-9a99ca80-6abf-11eb-9f4d-377eb12872bd.png" width="600"/>  
-
 ```
 # Step 1: Check whether new data has been published
 if(last_setpoint_x != (int)(_manual_control_setpoint.x * 10000) && last_setpoint_y != (int)(_manual_control_setpoint.y *10000))
@@ -55,8 +53,6 @@ last_setpoint_y = (int)(temp_setpoint.y * 10000);
 - **Attack Type**: Drone Aircraft, Ground Control Station, Drone Flight Stack
 - **Attack Point**: Drone Firmware, Commander.cpp
 - **Attack Code**:  
-<img title="S2" alt="PX4-S2" src="https://user-images.githubusercontent.com/20378368/107302293-82767b00-6ac0-11eb-91d9-1a7af3b3755f.png" width="500"/>  
-
 ```
 # Step 1: Mission structure declaration
 mission_s mission;
@@ -115,8 +111,6 @@ if(_mission_result_sub.get().finished){
 - **Attack Type**: Ground Control Station, Drone Flight Stack
 - **Attack Point**: Drone Firmware, Commander.cpp
 - **Attack Code**:  
-<img title="S3" alt="PX4-S3" src="https://user-images.githubusercontent.com/20378368/107302870-645d4a80-6ac1-11eb-93f8-88b8ca5c313b.png" width="600"/> 
-
 ```
 # Step 1: Sending 1000 loss signals
 else if(MESL03_Loss_flag <= 1000)
